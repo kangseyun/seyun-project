@@ -1,0 +1,74 @@
+// DATABASE-SCHEMA
+// Prisma schema definition for PostgreSQL database
+
+// Prisma client generator configuration
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+// Database connection configuration
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// USER-MODEL
+// Represents application user with authentication details
+model User {
+  id        String    @id @default(uuid()) // Primary key, auto-generated UUID
+  email     String    @unique              // Unique email for authentication
+  password  String                         // Hashed password
+  name      String                         // User display name
+  role      Role      @default(USER)       // User access level/permissions
+  createdAt DateTime  @default(now())      // Account creation timestamp
+  updatedAt DateTime  @updatedAt           // Last update timestamp
+  profile   Profile?                       // One-to-one relation with Profile
+  posts     Post[]                         // One-to-many relation with Posts
+}
+
+// PROFILE-MODEL
+// Extended user information
+model Profile {
+  id        String   @id @default(uuid())
+  bio       String?                        // Optional user biography
+  avatar    String?                        // Avatar image URL
+  phone     String?                        // Optional phone number
+  address   String?                        // Optional address
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @unique               // Foreign key to User model
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// POST-MODEL
+// User generated content
+model Post {
+  id        String    @id @default(uuid())
+  title     String                         // Post title
+  content   String                         // Post content
+  published Boolean   @default(false)      // Publication status
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String                         // Foreign key to User model
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  comments  Comment[]                      // One-to-many relation with Comments
+}
+
+// COMMENT-MODEL
+// User comments on posts
+model Comment {
+  id        String   @id @default(uuid())
+  content   String                         // Comment content
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String                         // Foreign key to Post model
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ROLE-ENUM
+// User access levels with different permissions
+enum Role {
+  ADMIN // Administrator with full access
+  USER  // Regular user with limited access
+} 

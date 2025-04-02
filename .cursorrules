@@ -1,0 +1,38 @@
+# AI-OPTIMIZED-FULLSTACK Project Rules
+
+This is a full-stack TypeScript project optimized for AI-assisted development. The project uses these technologies:
+
+- Frontend: Next.js + Refine + TypeScript
+- Backend: NestJS + TypeScript
+- Database: Prisma ORM with PostgreSQL
+- API: REST + OpenAPI
+
+## Code Structure
+
+- Monorepo structure with apps/ and packages/ directories
+- Shared types and utilities in packages/shared
+- Strong typing throughout the codebase
+- Component-based frontend architecture
+- Module-based backend architecture
+
+## Coding Rules
+
+For detailed rules, see the .cursor/rules directory:
+
+- general.md: Overall coding standards
+- frontend.md: Next.js and Refine specific rules
+- backend.md: NestJS specific rules
+- shared.md: Shared package rules
+- documentation.md: Documentation standards
+
+## AI Instructions
+
+When working on this project, focus on:
+
+1. Maintaining strict type safety across boundaries
+2. Following established patterns in each module
+3. Adding comprehensive JSDoc comments
+4. Keeping code modular and testable
+5. Optimizing for AI understanding with clear naming
+
+Please prioritize understanding module boundaries and using shared types correctly. 

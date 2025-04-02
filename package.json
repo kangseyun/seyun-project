@@ -1,0 +1,28 @@
+{
+  "name": "ai-optimized-fullstack",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:setup": "bash scripts/db-setup.sh",
+    "db:seed": "bash scripts/db-setup.sh --seed",
+    "db:studio": "cd apps/api && npx prisma studio",
+    "dev:start": "bash scripts/dev-start.sh"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.3",
+    "prettier": "^2.8.8"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "npm@9.6.7"
+} 
